@@ -3,70 +3,236 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Lumi !</title>
+    <title>Profile</title>
     <style>
         * {
-            box-sizing: border-box !important;
-            margin: 0 !important;
-            padding: 0 !important;
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
         }
 
         body {
-            background-color: #f5f5f7 !important;
+            background-color: #f5f5f7;
             background-image: 
                 linear-gradient(to right, rgba(0, 0, 0, 0.02) 1px, transparent 1px),
                 linear-gradient(to bottom, rgba(0, 0, 0, 0.02) 1px, transparent 1px);
             background-size: 40px 40px;
-            display: flex !important;
-            justify-content: center !important;
-            align-items: center !important;
-            min-height: 100vh !important;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
             padding: 20px;
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
         }
 
-        /* Recreating the exact card shape from the screenshot but in white layout format */
         .profile-card {
-            background-color: #ffffff !important;
-            width: 350px !important; /* Fixed structural width matching original reference layout */
-            border-radius: 24px !important;
-            padding: 28px !important;
-            border: 1px solid #e2e8f0 !important;
-            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.04) !important;
-            display: flex !important;
-            flex-direction: column !important;
-            align-items: stretch !important;
+            background-color: #ffffff;
+            width: 350px;
+            border-radius: 24px;
+            padding: 28px;
+            border: 1px solid #e2e8f0;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.04);
+            display: flex;
+            flex-direction: column;
+            align-items: stretch;
         }
 
-        /* Alignment row matching the exact look from your screenshot */
         .profile-header {
-            display: flex !important;
-            flex-direction: row !important;
-            align-items: center !important;
-            gap: 16px !important;
-            margin-bottom: 24px !important;
+            display: flex;
+            flex-direction: row;
+            align-items: center;
+            gap: 16px;
+            margin-bottom: 24px;
         }
 
         .avatar {
-            width: 64px !important;
-            height: 64px !important;
-            border-radius: 50% !important;
-            object-fit: cover !important;
-            border: 1px solid #e2e8f0 !important;
+            width: 64px;
+            height: 64px;
+            border-radius: 50%;
+            object-fit: cover;
+            border: 1px solid #e2e8f0;
+            background-color: #f1f5f9;
         }
 
         .user-titles {
-            display: flex !important;
-            flex-direction: column !important;
-            align-items: flex-start !important;
+            display: flex;
+            flex-direction: column;
+            align-items: flex-start;
         }
 
         .user-titles h1 {
-            font-size: 1.5rem !important;
-            font-weight: 700 !important;
-            color: #0f172a !important;
-            margin-bottom: 4px !important;
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: #0f172a;
+            margin-bottom: 4px;
+            word-break: break-word;
         }
 
+        .tags-container {
+            display: flex;
+            flex-direction: row;
+            gap: 4px;
+            flex-wrap: wrap;
+        }
+
+        .tag {
+            background-color: #f1f5f9;
+            color: #64748b;
+            font-size: 0.7rem;
+            font-weight: 600;
+            padding: 2px 6px;
+            border-radius: 4px;
+            font-family: monospace;
+        }
+
+        .about-section {
+            margin-bottom: 24px;
+            text-align: left;
+        }
+
+        .section-title {
+            font-size: 0.65rem;
+            font-weight: 700;
+            color: #94a3b8;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            margin-bottom: 8px;
+        }
+
+        .about-text {
+            color: #334155;
+            font-size: 0.88rem;
+            line-height: 1.5;
+        }
+
+        .discord-btn {
+            display: flex;
+            flex-direction: row;
+            align-items: center;
+            justify-content: space-between;
+            width: 100%;
+            padding: 16px 20px;
+            background-color: #f8fafc;
+            border: 1px solid #e2e8f0;
+            border-radius: 14px;
+            text-decoration: none;
+            transition: background-color 0.2s ease, transform 0.1s ease;
+            cursor: pointer;
+        }
+
+        .discord-btn:hover {
+            background-color: #f1f5f9;
+            transform: translateX(2px);
+        }
+
+        .btn-content {
+            display: flex;
+            flex-direction: row;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .discord-icon {
+            width: 18px;
+            height: 18px;
+        }
+
+        .btn-text {
+            font-size: 0.9rem;
+            font-weight: 600;
+            color: #334155;
+        }
+
+        .arrow {
+            font-size: 0.9rem;
+            color: #94a3b8;
+            font-weight: bold;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="profile-card">
+        <div class="profile-header">
+            <img class="avatar" id="avatar" alt="Profile">
+            <div class="user-titles">
+                <h1 id="username">Loading...</h1>
+                <div class="tags-container" id="tags"></div>
+            </div>
+        </div>
+
+        <div class="about-section">
+            <div class="section-title">About Me</div>
+            <p class="about-text" id="bio">Loading profile...</p>
+        </div>
+
+        <a class="discord-btn" id="discordLink" target="_blank">
+            <div class="btn-content">
+                <img class="discord-icon" src="https://img.icons8.com/?size=100&id=30888&format=png&color=000000" alt="Discord">
+                <span class="btn-text" id="btnText">Discord Profile</span>
+            </div>
+            <span class="arrow">→</span>
+        </a>
+    </div>
+
+    <script>
+        const DISCORD_USER_ID = '1469757489070211167';
+
+        async function fetchDiscordUser() {
+            try {
+                const response = await fetch(`https://japi.rest/discord/v1/user/${DISCORD_USER_ID}`);
+                if (!response.ok) {
+                    throw new Error('Failed to fetch user data');
+                }
+                const data = await response.json();
+                return data.data;
+            } catch (error) {
+                console.error('Error fetching Discord user:', error);
+                return null;
+            }
+        }
+
+        function getAvatarUrl(user) {
+            if (!user.avatar) return 'https://cdn.discordapp.com/embed/avatars/0.png';
+            const format = user.avatar.startsWith('a_') ? 'gif' : 'webp';
+            return `https://cdn.discordapp.com/avatars/${user.id}/${user.avatar}.${format}?size=2048`;
+        }
+
+        async function initializeProfile() {
+            const user = await fetchDiscordUser();
+            
+            if (!user) {
+                document.getElementById('username').textContent = 'Profile Unavailable';
+                document.getElementById('bio').textContent = 'Unable to load profile data. Please try again later.';
+                document.getElementById('avatar').style.display = 'none';
+                return;
+            }
+
+            document.getElementById('username').textContent = user.username;
+            document.getElementById('avatar').src = getAvatarUrl(user);
+            document.getElementById('avatar').alt = user.username;
+
+            // Set custom bio with username dynamically inserted
+            document.getElementById('bio').textContent = `Hello, I'm ${user.username}, a Luau and Python programmer. To contact me, DM me at discord.com, my username is ${user.username}`;
+
+            const discordLink = document.getElementById('discordLink');
+            discordLink.href = `https://discord.com/users/${user.id}`;
+
+            const tagsContainer = document.getElementById('tags');
+            tagsContainer.innerHTML = '';
+            if (user.username) {
+                const tag = document.createElement('span');
+                tag.className = 'tag';
+                tag.textContent = `@${user.username.toLowerCase()}`;
+                tagsContainer.appendChild(tag);
+            }
+        }
+
+        initializeProfile();
+    </script>
+
+</body>
+</html>
         .tags-container {
             display: flex !important;
             flex-direction: row !important;
